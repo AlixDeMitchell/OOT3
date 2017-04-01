@@ -48,6 +48,79 @@ int Application::GetParticleCount()
 	return m_particleCount;
 }
 
+void Application::UpdateOwner( std::shared_ptr<Particle> _particle )
+{
+	//check if owner exists
+	std::shared_ptr<Bucket> currentOwner = _particle->GetOwner().lock();
+
+	if ( currentOwner == nullptr )
+	{
+		return;
+	}
+
+	_particle->Rehash(m_buckets);
+
+	std::shared_ptr<Bucket> newOwner = _particle->GetOwner().lock;
+
+	if ( currentOwner == newOwner )
+	{
+		return;
+	}
+
+	else
+	{
+		if ( _particle->GetIter() != currentOwner->GetList().end )
+		{
+			currentOwner->GetList.erase( _particle->GetIter() );
+			newOwner->GetList.push_back( _particle );
+		}
+	}
+
+
+
+	//std::shared_ptr<Bucket> incoming_bucket = _currentBucket.lock();
+	//std::shared_ptr<Bucket> existing_bucket = m_owner.lock();
+
+	//if ( !existing_bucket )
+	//{
+
+	//	m_owner = _currentBucket;
+
+	//	std::shared_ptr<Particle> thisShared = shared_from_this();
+	//	incoming_bucket->GetList().push_back( thisShared );
+
+	//		m_iter = std::find(
+	//			incoming_bucket->GetList().begin(),
+	//			incoming_bucket->GetList().end(),
+	//			shared_from_this() );
+
+	//		return;
+	//}
+
+	//else if ( incoming_bucket/*->GetIndex()*/ == existing_bucket/*->GetIndex()*/ )
+	//{
+	//	return;
+	//}
+
+	//else if ( incoming_bucket != existing_bucket )
+	//{
+	//	//erase this particle from current owner particle list
+	//   // add this particle to new owner particle list
+	//  //	m_owner = _owner;
+	//	if ( m_iter != existing_bucket->GetList().end() )
+	//	{
+	//		existing_bucket->GetList().erase( m_iter );
+
+	//		incoming_bucket->GetList().push_back( shared_from_this() );
+
+	//		m_iter = std::find(
+	//			incoming_bucket->GetList().begin(),
+	//			incoming_bucket->GetList().end(),
+	//			shared_from_this() );
+	//	}
+	//}
+
+}
 //bool Application::HasParticleCollided( std::shared_ptr<Bucket> _owner, std::list<std::shared_ptr<Particle>> _otherParticles )
 //{
 //	return false;
