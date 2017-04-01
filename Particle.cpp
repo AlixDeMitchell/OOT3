@@ -97,6 +97,13 @@ void Particle::Rehash( std::vector<std::shared_ptr<Bucket>> &_buckets )
 		int i = yindex * 4 + xindex
 
 		setOwner(buckets.at(i));*/
+	
+	m_position = this->m_position;
+
+	int xIndex = ( 190 / m_position.x );
+	int yIndex = ( 100 / m_position.y );
+	int i = yIndex * 10 + xIndex;
+	SetOwner( _buckets.at( i ) );
 }
 
 
