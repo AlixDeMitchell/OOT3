@@ -49,6 +49,8 @@ public:
 	//draw
 	void Draw();
 
+	void UpdateOwner( std::shared_ptr<Particle> _particle );
+	
 	//Empty Buckets
 	//void EmptyBuckets( std::vector<std::shared_ptr<Bucket>> &_buckets );
 
