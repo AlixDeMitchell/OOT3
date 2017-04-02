@@ -25,48 +25,9 @@ std::weak_ptr<Bucket> Particle::GetOwner()
 	return m_owner;
 }
 
-void Particle::SetOwner( std::weak_ptr<Bucket> _owner )
+void Particle::SetOwner( std::weak_ptr<Bucket> _currentBucket )
 {
-	/*
-	std::shared_ptr<Bucket> incoming_bucket = _owner.lock();
-	std::shared_ptr<Bucket> existing_bucket = m_owner.lock();
-
-	if ( !existing_bucket )
-	{
-		std::shared_ptr<Particle> thisShared = shared_from_this();
-		incoming_bucket->GetList().push_back( thisShared );
-
-		m_iter = std::find(
-			incoming_bucket->GetList().begin(),
-			incoming_bucket->GetList().end(),
-			shared_from_this() );
-
-		return;
-	}
-
-	if ( incoming_bucket->GetIndex() == existing_bucket->GetIndex() )
-	{
-		return;
-	}
-	else
-	{
-		//  erase this particle from current owner particle list
-		//  add this particle to new owner particle list
-		//	m_owner = _owner;
-		if (m_iter != existing_bucket->GetList().end() )
-			existing_bucket->GetList().erase( m_iter );
-
-		incoming_bucket->GetList().push_back( shared_from_this() );
-
-		m_iter = std::find( 
-			incoming_bucket->GetList().begin(),
-			incoming_bucket->GetList().end(),
-			shared_from_this());
-
-	}
-	*/
-	m_owner = _owner;
-	
+	m_owner = _currentBucket;
 }
 
 SDL_Rect & Particle::GetRect()
@@ -85,25 +46,24 @@ void Particle::Update()
 	if ( rect.y < 0 || rect.y > 1000 ) m_velocity.y *= -1;
 }
 
-void Particle::Rehash( std::vector<std::shared_ptr<Bucket>> &_buckets )
+std::list<std::shared_ptr<Particle>>::iterator Particle::GetIter()
 {
-	/*m_position
-		Using this->position work out which bucket I am in
-		setOwner to be the bucket found in above
+	return m_iter;
+}
 
-		int xindex = (4 * owner->bucketWidth) / position.x
-		int yindex = (4 * owner->bucketHeight) / position.y
+void Particle::SetIter( std::vector<std::shared_ptr<Bucket>>& _buckets )
+{
 
-		int i = yindex * 4 + xindex
+}
 
-		setOwner(buckets.at(i));*/
-	
-	m_position = this->m_position;
+glm::vec2 Particle::GetPosition()
+{
+	return m_position;
+}
 
-	int xIndex = ( 190 / m_position.x );
-	int yIndex = ( 100 / m_position.y );
-	int i = yIndex * 10 + xIndex;
-	SetOwner( _buckets.at( i ) );
+SDL_Rect & Particle::GetRect()
+{
+	return rect;
 }
 
 
