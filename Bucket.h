@@ -13,12 +13,13 @@ class Bucket
 {
 private:
 
-	//coords of the upper left corner?
-	glm::vec2 m_bucketPos;
+	//screen coordinates of the bucket
+	//m::vec2 m_bucketPos;
 
 	//list containing a ptr to all particles within a given bucket
 	std::list<std::shared_ptr<Particle>> m_particles;
 
+	//position of each bucket within the vector of buckets, created in application GenerateBuckets routine
 	int m_index;
 
 public:
@@ -27,12 +28,6 @@ public:
 	Bucket(int _index);
 	~Bucket();
 
-	//clear the list of particles so that it can be updated
-	//void ClearList();
-
-	////update list with currently in-bucket particles
-	//void SetList( std::list<std::shared_ptr<Particle>> &_updatedList );
-
 	//getter for particle list
 	std::list<std::shared_ptr<Particle>> GetList ();
 
@@ -40,7 +35,14 @@ public:
 	int GetIndex();
 	void SetIndex( int _index );
 
+	//add particle to bucket
 	void AddParticle( std::shared_ptr<Particle> _particle );
+
+	//remove particle from bucket
+	void RemoveParticle( std::list<std::shared_ptr<Particle>>::iterator _iter );
+
+	
+
 };
 
 #endif
